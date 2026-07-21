@@ -76,3 +76,38 @@
   document.addEventListener("mouseleave", resetGlow);
   window.addEventListener("blur", resetGlow);
 })();
+
+(() => {
+  const form = document.querySelector("[data-contact-form]");
+
+  if (!form) {
+    return;
+  }
+
+  const status = form.querySelector("[data-form-status]");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const name = formData.get("name").trim();
+    const email = formData.get("email").trim();
+    const company = formData.get("company").trim();
+    const message = formData.get("message").trim();
+    const subject = `Project inquiry from ${name}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Company: ${company || "Not provided"}`,
+      "",
+      "Project details:",
+      message,
+    ].join("\n");
+    const mailto = new URL(form.action);
+
+    mailto.searchParams.set("subject", subject);
+    mailto.searchParams.set("body", body);
+    status.textContent = "Your email app should open with a prepared message.";
+    window.location.href = mailto.toString();
+  });
+})();

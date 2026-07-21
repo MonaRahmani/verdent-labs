@@ -94,9 +94,81 @@
           </article>
         </div>
       </section>
+
+      <section class="contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="contact-intro">
+          <p class="section-label">Contact</p>
+          <h2 id="contact-title">Tell us what you’re working on.</h2>
+          <p>
+            Share a little about your business, the problem you want to solve,
+            and where you are in the process. We’ll use your details only to
+            respond to your inquiry.
+          </p>
+        </div>
+
+        <form
+          class="contact-form"
+          action="mailto:hello@verdentlabs.example"
+          method="post"
+          enctype="text/plain"
+          data-contact-form
+        >
+          <div class="form-grid">
+            <label>
+              Name
+              <input
+                type="text"
+                name="name"
+                autocomplete="name"
+                maxlength="100"
+                required
+              />
+            </label>
+            <label>
+              Work email
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                maxlength="254"
+                required
+              />
+            </label>
+          </div>
+
+          <label>
+            <span>Company <span class="optional">Optional</span></span>
+            <input
+              type="text"
+              name="company"
+              autocomplete="organization"
+              maxlength="120"
+            />
+          </label>
+
+          <label>
+            How can we help?
+            <textarea
+              name="message"
+              rows="6"
+              maxlength="3000"
+              placeholder="Describe the project, challenge, or opportunity."
+              required
+            ></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="button" type="submit">Open email draft</button>
+            <p class="form-note">
+              This opens your email app. The website does not store your message.
+            </p>
+          </div>
+          <p class="form-status" data-form-status aria-live="polite"></p>
+        </form>
+      </section>
     </main>
 
-    <footer id="contact">
+    <footer>
       <div>
         <p class="section-label">Start a conversation</p>
         <a class="contact-link" href="mailto:hello@verdentlabs.example">
