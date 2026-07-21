@@ -85,29 +85,43 @@
   }
 
   const status = form.querySelector("[data-form-status]");
+  const submitButton = form.querySelector("[data-submit-button]");
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending…";
+    status.dataset.state = "pending";
+    status.textContent = "Sending your inquiry…";
 
-    const formData = new FormData(form);
-    const name = formData.get("name").trim();
-    const email = formData.get("email").trim();
-    const company = formData.get("company").trim();
-    const message = formData.get("message").trim();
-    const subject = `Project inquiry from ${name}`;
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Company: ${company || "Not provided"}`,
-      "",
-      "Project details:",
-      message,
-    ].join("\n");
-    const mailto = new URL(form.action);
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      const result = await response.json().catch(() => ({}));
 
-    mailto.searchParams.set("subject", subject);
-    mailto.searchParams.set("body", body);
-    status.textContent = "Your email app should open with a prepared message.";
-    window.location.href = mailto.toString();
+      if (!response.ok) {
+        const message = result.errors
+          ?.map((error) => error.message)
+          .filter(Boolean)
+          .join(" ");
+
+        throw new Error(message || "Formspree could not accept the submission.");
+      }
+
+      form.reset();
+      status.dataset.state = "success";
+      status.textContent =
+        "Thanks — your inquiry was sent. We’ll be in touch soon.";
+    } catch (error) {
+      status.dataset.state = "error";
+      status.textContent =
+        "We couldn’t send your inquiry. Please try again in a moment.";
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Send inquiry";
+    }
   });
 })();

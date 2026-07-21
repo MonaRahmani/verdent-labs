@@ -272,8 +272,17 @@ h1 {
 }
 
 .contact-form {
+  position: relative;
   display: grid;
   gap: 22px;
+}
+
+.form-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
 }
 
 .form-grid {
@@ -337,6 +346,11 @@ h1 {
   font-family: inherit;
 }
 
+.form-actions .button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
 .form-note,
 .form-status {
   margin: 0;
@@ -348,9 +362,18 @@ h1 {
   max-width: 320px;
 }
 
+.form-note a {
+  color: var(--accent-dark);
+  text-underline-offset: 3px;
+}
+
 .form-status {
   min-height: 1.3em;
   color: var(--accent);
+}
+
+.form-status[data-state="error"] {
+  color: #ffb9b9;
 }
 
 footer {

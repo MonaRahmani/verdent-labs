@@ -108,11 +108,23 @@
 
         <form
           class="contact-form"
-          action="mailto:hello@verdentlabs.example"
+          action="https://formspree.io/f/xqerlnad"
           method="post"
-          enctype="text/plain"
           data-contact-form
         >
+          <input
+            class="form-honeypot"
+            type="text"
+            name="_gotcha"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+          <input
+            type="hidden"
+            name="_subject"
+            value="New Verdent Labs project inquiry"
+          />
           <div class="form-grid">
             <label>
               Name
@@ -158,12 +170,20 @@
           </label>
 
           <div class="form-actions">
-            <button class="button" type="submit">Open email draft</button>
+            <button class="button" type="submit" data-submit-button>
+              Send inquiry
+            </button>
             <p class="form-note">
-              This opens your email app. The website does not store your message.
+              Securely delivered through Formspree. See our
+              <a href="privacy-policy.html">Privacy Policy</a>.
             </p>
           </div>
-          <p class="form-status" data-form-status aria-live="polite"></p>
+          <p
+            class="form-status"
+            data-form-status
+            role="status"
+            aria-live="polite"
+          ></p>
         </form>
       </section>
     </main>
