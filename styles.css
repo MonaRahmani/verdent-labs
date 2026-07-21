@@ -1,11 +1,12 @@
 :root {
-  --ink: #14231b;
-  --muted: #56645c;
-  --paper: #f4f7f1;
-  --surface: #e6eee5;
-  --accent: #2f6b4f;
-  --accent-dark: #24543e;
-  --line: #c9d5ca;
+  color-scheme: dark;
+  --ink: #edf7f0;
+  --muted: #a6b8ac;
+  --paper: #0b1510;
+  --surface: #14241a;
+  --accent: #72d49a;
+  --accent-dark: #a2e8bb;
+  --line: #293a30;
   --max-width: 1120px;
 }
 
@@ -56,11 +57,21 @@ footer {
 }
 
 .logo {
+  --logo-brightness: 1;
+  --logo-glow-alpha: 0;
+  --logo-glow-size: 0px;
   display: block;
   width: 40px;
   height: 40px;
   flex: 0 0 40px;
+  filter: brightness(var(--logo-brightness))
+    drop-shadow(
+      0 0 var(--logo-glow-size)
+        rgb(126 255 178 / var(--logo-glow-alpha))
+    );
   object-fit: contain;
+  transition: filter 180ms ease-out;
+  will-change: filter;
 }
 
 nav {
@@ -124,7 +135,7 @@ h1 {
 .button {
   justify-self: start;
   padding: 13px 20px;
-  color: white;
+  color: #08130c;
   background: var(--accent);
   border-radius: 4px;
   font-size: 0.9rem;
@@ -381,5 +392,10 @@ footer > p {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .logo {
+    filter: none;
+    transition: none;
   }
 }
