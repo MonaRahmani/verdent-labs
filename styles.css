@@ -267,13 +267,6 @@ footer {
   text-underline-offset: 5px;
 }
 
-footer > p {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 0.8rem;
-  text-align: right;
-}
-
 .footer-meta {
   display: grid;
   justify-items: end;
@@ -421,11 +414,6 @@ footer > p {
 
   .legal-page {
     padding: 70px 0 90px;
-  }
-
-  footer > p {
-    margin-top: 52px;
-    text-align: left;
   }
 }
 
