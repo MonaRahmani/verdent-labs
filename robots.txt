@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://monarahmani.github.io/verdent-labs/sitemap.xml
