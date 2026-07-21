@@ -6,38 +6,46 @@
     return;
   }
 
-  const logos = document.querySelectorAll(".logo");
-  const effectRadius = 280;
+  const logoEffects = document.querySelectorAll(".logo-effect");
+  const effectRadius = 360;
   let pointerX = Number.POSITIVE_INFINITY;
   let pointerY = Number.POSITIVE_INFINITY;
   let animationFrame = null;
 
-  const setLogoIntensity = (logo, intensity) => {
-    const easedIntensity = intensity * intensity;
+  const setLogoIntensity = (logoEffect, intensity) => {
+    const easedIntensity = Math.pow(intensity, 1.25);
 
-    logo.style.setProperty(
+    logoEffect.style.setProperty(
       "--logo-brightness",
-      (1 + easedIntensity * 0.68).toFixed(3),
+      (1 + easedIntensity * 1.05).toFixed(3),
     );
-    logo.style.setProperty(
+    logoEffect.style.setProperty(
       "--logo-glow-alpha",
-      (easedIntensity * 0.72).toFixed(3),
+      (easedIntensity * 0.92).toFixed(3),
     );
-    logo.style.setProperty(
+    logoEffect.style.setProperty(
       "--logo-glow-size",
-      `${(easedIntensity * 22).toFixed(1)}px`,
+      `${(easedIntensity * 32).toFixed(1)}px`,
+    );
+    logoEffect.style.setProperty(
+      "--logo-halo-opacity",
+      (easedIntensity * 0.9).toFixed(3),
+    );
+    logoEffect.style.setProperty(
+      "--logo-halo-scale",
+      (0.78 + easedIntensity * 0.28).toFixed(3),
     );
   };
 
   const updateGlow = () => {
-    logos.forEach((logo) => {
-      const bounds = logo.getBoundingClientRect();
+    logoEffects.forEach((logoEffect) => {
+      const bounds = logoEffect.getBoundingClientRect();
       const centerX = bounds.left + bounds.width / 2;
       const centerY = bounds.top + bounds.height / 2;
       const distance = Math.hypot(pointerX - centerX, pointerY - centerY);
       const intensity = Math.max(0, 1 - distance / effectRadius);
 
-      setLogoIntensity(logo, intensity);
+      setLogoIntensity(logoEffect, intensity);
     });
 
     animationFrame = null;
@@ -52,7 +60,7 @@
   const resetGlow = () => {
     pointerX = Number.POSITIVE_INFINITY;
     pointerY = Number.POSITIVE_INFINITY;
-    logos.forEach((logo) => setLogoIntensity(logo, 0));
+    logoEffects.forEach((logoEffect) => setLogoIntensity(logoEffect, 0));
   };
 
   window.addEventListener(
